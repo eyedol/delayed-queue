@@ -30,7 +30,6 @@ import com.addhen.delay.queue.PrintEventTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 public class RunDelayedQueue {
 
@@ -41,23 +40,8 @@ public class RunDelayedQueue {
         DelayedQueue<Event> delayedQueue = new DelayedQueueAsync();
         delayedQueue.subscribe(new PrintEventTask());
         delayedQueue.publish(new Event("key", "Message one"));
-
-        // Simulate delay before adding item two
-        try {
-            delayedQueue.publish(new Event("key", "Message two"));
-            System.out.println("sleep 1");
-            TimeUnit.SECONDS.sleep(5);
-        } catch (Exception e) {
-
-        }
-
-        try {
-            delayedQueue.publish(new Event("key", "Message three"));
-            System.out.println("sleep 2");
-            TimeUnit.SECONDS.sleep(5);
-        } catch (Exception e) {
-
-        }
+        delayedQueue.publish(new Event("key", "Message two"));
+        delayedQueue.publish(new Event("key", "Message three"));
         delayedQueue.publish(new Event("key", "Message three"));
         delayedQueue.publish(new Event("key1", "Message Four"));
         delayedQueue.publish(new Event("key", "Message Five"));
