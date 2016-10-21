@@ -1,9 +1,9 @@
 ### DelayQueue 
-Based this of the Producer - Consumer Pattern[1]
+Process event based on configured delay time otherwise the event is processed every 60 seconds
+
+T
 
 ```
 $ cd delay-queues 
 $ ./gradlew delayedQueue
 ```
-
-[1]: http://javarevisited.blogspot.jp/2012/02/producer-consumer-design-pattern-with.html

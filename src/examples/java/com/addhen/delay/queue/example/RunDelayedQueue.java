@@ -1,49 +1,67 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 Henry Addo
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.addhen.delay.queue.example;
 
-import com.addhen.delay.queue.DelayedEvent;
 import com.addhen.delay.queue.DelayedQueue;
+import com.addhen.delay.queue.DelayedQueueAsync;
 import com.addhen.delay.queue.Event;
-import com.addhen.delay.queue.Subject;
+import com.addhen.delay.queue.PrintEventTask;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class RunDelayedQueue {
 
     private static final long DELAY_IN_SECONDS = 60;
 
     public static void main(String args[]) throws Exception {
-        BlockingQueue<DelayedEvent<Event>> blockingQueue = new PriorityBlockingQueue();
-        Subject subject = new Subject();
-        DelayedQueue delayedQueue = new DelayedQueue(subject, blockingQueue);
 
-        delayedQueue.enqueueEvent("key", "Message one", DELAY_IN_SECONDS);
+        DelayedQueue<Event> delayedQueue = new DelayedQueueAsync();
+        delayedQueue.subscribe(new PrintEventTask());
+        delayedQueue.publish(new Event("key", "Message one"));
 
         // Simulate delay before adding item two
-        /*try {
+        try {
+            delayedQueue.publish(new Event("key", "Message two"));
+            System.out.println("sleep 1");
             TimeUnit.SECONDS.sleep(5);
         } catch (Exception e) {
 
-        }*/
-        delayedQueue.enqueueEvent("key", "Message two", DELAY_IN_SECONDS);
-        /*try {
+        }
+
+        try {
+            delayedQueue.publish(new Event("key", "Message three"));
+            System.out.println("sleep 2");
             TimeUnit.SECONDS.sleep(5);
         } catch (Exception e) {
 
-        }*/
-
-        // Simulate delay before adding item three
-        delayedQueue.enqueueEvent("key", "Message three", DELAY_IN_SECONDS);
-        /*try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (Exception e) {
-
-        }*/
-        delayedQueue.enqueueEvent("key1", "Message Four", DELAY_IN_SECONDS);
-        delayedQueue.enqueueEvent("key", "Message Five", DELAY_IN_SECONDS);
-        delayedQueue.enqueueEvent("key", "Message Six", DELAY_IN_SECONDS);
-        delayedQueue.enqueueEvent("key2", "Message Seven", DELAY_IN_SECONDS);
-        delayedQueue.shutDown();
-        System.out.println("Queue is being processed");
+        }
+        delayedQueue.publish(new Event("key", "Message three"));
+        delayedQueue.publish(new Event("key1", "Message Four"));
+        delayedQueue.publish(new Event("key", "Message Five"));
+        System.out.println(String.format("%s @%s", "Queue processed",
+                new SimpleDateFormat("mm").format(Calendar.getInstance().getTime())));
     }
 }

@@ -38,7 +38,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 task wrapper(type: Wrapper) {
     description 'Creates the gradle wrapper.'
-    gradleVersion '2.7'
+    gradleVersion '3.1'
 }
 
 def example(name, mainClass) {

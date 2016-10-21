@@ -23,26 +23,36 @@
  */
 package com.addhen.delay.queue;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 /**
+ * Make it a FIFO event
+ *
  * @author Henry Addo
  */
-public class Event implements Comparable<Event> {
+public class FifoEvent<E extends Comparable<? super E>>
+        implements Comparable<FifoEvent<E>> {
 
-    public String message;
+    private final static AtomicLong sAtomicLong = new AtomicLong();
 
-    public String key;
+    private E mEvent;
 
-    public Event(String key, String message) {
-        this.key = key;
-        this.message = message;
+    private long mSequenceNumber;
+
+    public FifoEvent(E event) {
+        mEvent = event;
+        mSequenceNumber = sAtomicLong.getAndIncrement();
+    }
+
+    public E getEvent() {
+        return mEvent;
     }
 
     @Override
-    public int compareTo(Event other) {
-        if (this.key.equalsIgnoreCase(other.key) && this.message.equalsIgnoreCase(other.message)) {
-            return -1;
-        }
-        return 0;
+    public int hashCode() {
+        int result = 1;
+        result = 31 * result + ((mEvent == null) ? 0 : mEvent.hashCode());
+        return result;
     }
 
     @Override
@@ -54,27 +64,29 @@ public class Event implements Comparable<Event> {
             return false;
         }
 
-        Event event = (Event) o;
+        FifoEvent<?> fifoEvent = (FifoEvent<?>) o;
 
-        if (!message.equals(event.message)) {
+        if (mSequenceNumber != fifoEvent.mSequenceNumber) {
             return false;
         }
-        return key.equals(event.key);
+        return mEvent != null ? mEvent.equals(fifoEvent.mEvent) : fifoEvent.mEvent == null;
 
     }
 
     @Override
-    public int hashCode() {
-        int result = message != null ? message.hashCode() : 0;
-        result = 31 * result + (key != null ? key.hashCode() : 0);
+    public int compareTo(FifoEvent<E> other) {
+        int result = mEvent.compareTo(other.mEvent);
+        if (result == 0 && other != mEvent) {
+            result = mSequenceNumber < other.mSequenceNumber ? -1 : 1;
+        }
         return result;
     }
 
     @Override
     public String toString() {
-        return "Event{"
-                + "message='" + message + '\''
-                + ", key='" + key + '\''
+        return "DelayedEvent{"
+                + "mEvent=" + mEvent
+                + ", mSequenceNumber=" + mSequenceNumber
                 + '}';
     }
 }
