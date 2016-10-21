@@ -80,7 +80,7 @@ public class DelayedQueueAsync<E extends Event> implements DelayedQueue<E> {
     public DelayedQueueAsync(long delayTime, ExecutorService executorService) {
         mDelayTime = delayTime;
         mExecutorService = executorService;
-        mThread = new Thread(this::consumeTasks);
+        mThread = new Thread(this::runTasks);
         mThread.setDaemon(true);
         mThread.start();
     }
@@ -111,7 +111,7 @@ public class DelayedQueueAsync<E extends Event> implements DelayedQueue<E> {
         return !mEventQueues.isEmpty();
     }
 
-    private void consumeTasks() {
+    private void runTasks() {
         while (true) {
             FifoEvent<E> fifoEvent = mEventQueues.poll();
             if (fifoEvent != null) {
