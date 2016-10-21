@@ -56,10 +56,10 @@ public class Event implements Comparable<Event> {
 
         Event event = (Event) o;
 
-        if (!message.equals(event.message)) {
+        if (message != null ? !message.equals(event.message) : event.message != null) {
             return false;
         }
-        return key.equals(event.key);
+        return key != null ? key.equals(event.key) : event.key == null;
 
     }
 

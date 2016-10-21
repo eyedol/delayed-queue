@@ -52,6 +52,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class DelayedQueueAsync<E extends Event> implements DelayedQueue<E> {
 
+    private static final int DEFAULT_DELAY_TIME = 60;
+
     private final Queue<FifoEvent<E>> mEventQueues = new ConcurrentLinkedQueue<>();
 
     private final Thread mThread;
@@ -64,11 +66,11 @@ public class DelayedQueueAsync<E extends Event> implements DelayedQueue<E> {
     private long mDelayTime;
 
     public DelayedQueueAsync() {
-        this(60, Executors.newSingleThreadExecutor());
+        this(DEFAULT_DELAY_TIME, Executors.newSingleThreadExecutor());
     }
 
     public DelayedQueueAsync(ExecutorService executorService) {
-        this(60, executorService);
+        this(DEFAULT_DELAY_TIME, executorService);
     }
 
     public DelayedQueueAsync(long delayTime) {
