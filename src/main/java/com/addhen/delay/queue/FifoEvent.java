@@ -66,6 +66,10 @@ public class FifoEvent<E extends Comparable<? super E>>
 
         FifoEvent<?> fifoEvent = (FifoEvent<?>) o;
 
+        if (this.getEvent().equals(fifoEvent.getEvent())) {
+            return true;
+        }
+
         if (mSequenceNumber != fifoEvent.mSequenceNumber) {
             return false;
         }
