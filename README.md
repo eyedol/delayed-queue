@@ -9,7 +9,7 @@ To integrate the library into your app, you need to make a few changes in the `b
 as follows:
 
 **Step 1.** 
-Add the JitPack repository to your build file. Add it in your root `build.gradle` at the end of repositories:
+Add the JitPack repository to your build file. Add it in your root `build.gradle` in the `repositories` block:
 
 ```java
 allprojects {
@@ -22,7 +22,7 @@ allprojects {
 Add the dependency
 ```java
 dependencies {
-    compile 'com.github.eyedol:delay-queue:1.0.0'
+    compile 'com.github.eyedol:delayed-queue:1.0.0'
 }
 ```
 
