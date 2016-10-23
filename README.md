@@ -1,4 +1,4 @@
-### DelayQueue
+### DelayedQueue
 
 Process `Events` based on configured delay time otherwise the default 60 seconds delay time is used.
 It's like an event bus system but with a delay time in processing events.
