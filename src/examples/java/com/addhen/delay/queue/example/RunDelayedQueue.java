@@ -26,7 +26,6 @@ package com.addhen.delay.queue.example;
 import com.addhen.delay.queue.DelayedQueue;
 import com.addhen.delay.queue.DelayedQueueAsync;
 import com.addhen.delay.queue.Event;
-import com.addhen.delay.queue.PrintEventTask;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,8 +36,8 @@ public class RunDelayedQueue {
 
     public static void main(String args[]) throws Exception {
 
-        DelayedQueue<Event> delayedQueue = new DelayedQueueAsync();
-        delayedQueue.subscribe(new PrintEventTask());
+        DelayedQueue<Event> delayedQueue = new DelayedQueueAsync<>();
+        delayedQueue.subscribe(new PrintEventTask<Event>());
         delayedQueue.publish(new Event("key", "Message one"));
         delayedQueue.publish(new Event("key", "Message two"));
         delayedQueue.publish(new Event("key", "Message three"));
