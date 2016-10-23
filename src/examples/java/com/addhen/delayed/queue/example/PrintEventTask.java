@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.addhen.delay.queue.example;
+package com.addhen.delayed.queue.example;
 
-import com.addhen.delay.queue.Event;
-import com.addhen.delay.queue.Task;
+import com.addhen.delayed.queue.Event;
+import com.addhen.delayed.queue.Task;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

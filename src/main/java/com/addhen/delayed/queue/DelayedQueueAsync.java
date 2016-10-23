@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.addhen.delay.queue;
+package com.addhen.delayed.queue;
 
 import java.util.Collections;
 import java.util.Queue;

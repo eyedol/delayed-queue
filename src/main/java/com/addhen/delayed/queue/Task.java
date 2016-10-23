@@ -21,18 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.addhen.delay.queue;
+package com.addhen.delayed.queue;
 
 /**
+ * Implement this to provide your own action
+ *
  * @author Henry Addo
  */
-public interface DelayedQueue<E extends Event> {
+public interface Task<E extends Event> {
 
-    void subscribe(Task<E> task);
-
-    void unsubscribe(Task<E> task);
-
-    void publish(E event);
-
-    boolean hasPendingEvents();
+    void execute(E event);
 }
