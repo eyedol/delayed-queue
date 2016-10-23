@@ -48,7 +48,7 @@ delayedQueue.publish(new Event("key", "Message three"));
 To run sample code:
 
 ```
-$ cd delay-queues
+$ cd delayed-queues
 $ ./gradlew delayedQueue
 ```
 
