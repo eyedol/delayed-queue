@@ -30,7 +30,7 @@ dependencies {
 
 Make sure to implement the `Task` interface to define your own task. Then subscribe it to the 
 `DelayedQueue` instance. There is a sample `Task` implemented called `PrintEventTask` in the 
-example module.
+example module that demonstrates this.
 
 See sample code for an example usage
 
